@@ -1,20 +1,20 @@
-#Dialogflow Twitch Bot
+# Dialogflow Twitch Bot
 
-The goal of this project is to create a Twitch bot (a fake user for twitch.tv that will respond to actual users commands) through Dialogflow, a service that allows the creation of an agent that follows a conversational model. 
+The goal of this project is to create a Twitch bot (a fake user for twitch.tv that will respond to actual users' messages/commands) through Dialogflow, a service that allows the creation of an agent that follows a definable conversational model. 
 
-** Note: ** if you are looking to create a Twitch bot, Dialogflow may not be the service for you. It provides a lot of complexity even if the exact things you want to accomplish are easy. If you are still interested in applying this service to your Twitch stream, continue below. 
+**Note:** if you are looking to create a Twitch bot, Dialogflow may not be the service for you. It provides a lot of complexity even if the exact things you want to accomplish are easy. If you are still interested in applying this service to your Twitch stream, continue below. 
 
-##Current Release
+## Current Release
 
-This release, 0.1.0, sends the query "hi" to the Dialogflow agent specified in the properties file. If both the Dialogflow agent and the authentication related to the agent's Google Cloud Project are set up properly, the expected response should be sent back to the machine running this code and printed to the console.
+This release, 0.1.0, sends a given query to the Dialogflow agent specified in the properties file. If both the Dialogflow agent and the authentication related to the agent's Google Cloud Project are set up properly, the expected response should be sent back to the machine running this code and printed to the console. This current release uses the code listed on the official Node.js V2 API github ( https://github.com/dialogflow/dialogflow-nodejs-client-v2#using-the-client-library )
 
-##Set up
+## Set up
 
 As mentioned above, certain steps must be taken for this project to work. These are the exact steps to be taken:
 
 1. Create the Dialogflow agent
 	- Go to https://console.dialogflow.com . Create an account, then an agent.
-	- Create an intent (name it anything). Add the example input of "hi" and the response of "Hi, welcome to the stream."
+	- Create an intent (name it anything). Add some examply input and the response of "Hi, welcome to the stream." (or a different response)
 	
 2. Configure the associated Google Cloud Project to work properly (please follow https://github.com/dialogflow/dialogflow-nodejs-client-v2#quickstart , specifically the section "Before you begin". The steps there are reposted more simply below)
 	- Go to the associated Google Cloud Project ( https://console.cloud.google.com )
@@ -28,14 +28,17 @@ As mentioned above, certain steps must be taken for this project to work. These 
 
 3. Download/clone this project & configure
 	- Create a 'properties.json' file.
-	- Add the following, replacing 'YOUR-AGENT-ID-HERE' with your Dialogflow agent id (accessible via Dialogflow console):
+	- Add the following text: 
 	
 	```javascript
 	{
-		"dialogflowAgentId": "YOUR-AGENT-ID-HERE"
+		"dialogflowAgentId": "YOUR-AGENT-ID-HERE",
+		"sampleQuery": "YOUR-QUERY-HERE"
 	}
 	```
-	
+	-The replace the property values as such:
+		-'YOUR-AGENT-ID-HERE' with your Dialogflow agent id (accessible via Dialogflow console):
+		-'YOUR-QUERY-HERE' with the sample input you added to the Dialogflow agent
 4. Install Node.js 
 
 5. run 'npm install' within the project directory
@@ -43,8 +46,8 @@ As mentioned above, certain steps must be taken for this project to work. These 
 6. run 'node index.js'
 
 Result should be:
-	"Query: hi
+	"Query: YOUR-QUERY-HERE \n
 	Response: Hi, welcome to the stream."
 	
-#Project Dependencies:
+## Project Dependencies:
  - dialogflow js module 

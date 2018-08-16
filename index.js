@@ -12,7 +12,7 @@ const propertyObject = JSON.parse(fs.readFileSync('properties.json'));
 //Project details
 const dfId = propertyObject.dialogflowAgentId;
 const dfSessionId = 'test-session-id';
-const testQuery = 'hi';
+const testQuery = propertyObject.sampleQuery;
 const languageCode = 'en-US';
 
 //Instantiate Dialogflow client
