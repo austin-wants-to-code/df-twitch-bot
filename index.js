@@ -2,17 +2,15 @@
 
 //modules
 const fs = require('fs');   //to read JSON files
-const dfc = require('./dialogflow/DialogflowController.js'); //our simple interface to Dialogflow
-const tb = require('./twitch/TwitchBot.js'); //represents the twitch bot
+const DialogflowController = require('./dialogflow/DialogflowController.js'); //our simple interface to Dialogflow
+const TwitchBot = require('./twitch/TwitchBot.js'); //represents the twitch bot
 
 //Load properties
 const propertyObject = JSON.parse(fs.readFileSync('properties.json'));
 
-//Dialogflow setup
-const dfConfig = propertyObject.dialogflowConfig;
-const dfController = new dfc(dfConfig); //controller provides access to the agent
+//Dialogflow controller. Provides an interface to the Dialogflow agent. Used in TwitchBot.js.
+const dfController = new DialogflowController(propertyObject.dialogflowConfig); 
 
-//Twitch bot setup
-const twitchBotConfig = propertyObject.twitchBotConfig;
-const twitchBot = new tb(twitchBotConfig, dfController);
+//Twitch Bot instance. Provides an interface to interacting with the Twitch chat. Reads chat messages and sends to DialogflowController
+const twitchBot = new TwitchBot(propertyObject.twitchBotConfig, dfController);
 twitchBot.start();
