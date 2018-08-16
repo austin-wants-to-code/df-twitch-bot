@@ -1,3 +1,5 @@
+//Diaglogflow Request code taken from https://github.com/dialogflow/dialogflow-nodejs-client-v2#quickstart
+'use strict';
 const df = require('dialogflow');
 
 //DialogflowController will have major functionality relating to Dialogflow (such as making and sending requests)
