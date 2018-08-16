@@ -1,10 +1,10 @@
 const df = require('dialogflow');
 
 //DialogflowController will have major functionality relating to Dialogflow (such as making and sending requests)
-function DialogflowController(agentId, sessionId){
+function DialogflowController(config){
     //Instance vars
-    this.agentId = agentId;
-    this.sessionId = sessionId;
+    this.agentId = config.agentId;
+    this.sessionId = config.sessionId;
 
     //Client set up instance vars
     this.sessionClient = new df.SessionsClient(); //set up client

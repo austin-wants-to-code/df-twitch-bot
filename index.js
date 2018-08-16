@@ -12,16 +12,12 @@ const propertyObject = JSON.parse(fs.readFileSync('properties.json'));
 
 //Dialogflow details
 const dfConfig = propertyObject.dialogflowConfig;
-const dfId = dfConfig.agentId;
-const dfSessionId = dfConfig.sessionId;
+const dfController = new dfc(dfConfig); //controller provides access to the agent
 
 //Twitch bot details
 const twitchBotConfig = propertyObject.twitchBotConfig;
 const twitchClient = new tmi.client(twitchBotConfig);
 twitchClient.connect();
-
-//Dialogflow controller
-const dfController = new dfc(dfId, dfSessionId); //controller provides access to the agent
 
 //Print function for dialogflow response
 function printResponse(response){
