@@ -26,8 +26,8 @@ function printResponse(response){
 }
 
 //Function to run when chat message is received
-function onMessage(sendingUser, userstate, message, self){
-    console.log(`message '${message}' from ${sendingUser}`);
+function onMessage(channel, userstate, message, self){
+    console.log(`message '${message}' from ${userstate['username']}`);
     console.log("sending to diaglogflow...");
     dfController.queryAgent(message, printResponse);
 }
