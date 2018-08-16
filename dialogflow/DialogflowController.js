@@ -48,13 +48,5 @@ DialogflowController.prototype.queryAgent = function(queryString, callback){
     sendQuery.call(this, createQuery.call(this, queryString), callback);
 }
 
-DialogflowController.prototype.getQueryFromResponse = function(response){
-    return response.queryText;
-}
-
-DialogflowController.prototype.getResponseTextFromResponse = function(response){
-    return response.fulfillmentText;
-}
-
 //Export
 module.exports = DialogflowController;

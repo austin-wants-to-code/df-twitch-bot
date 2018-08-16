@@ -33,12 +33,14 @@ As mentioned above, certain steps must be taken for this project to work. These 
 	```javascript
 	{
 		"dialogflowAgentId": "YOUR-AGENT-ID-HERE",
-		"sampleQuery": "YOUR-QUERY-HERE"
+		"dialogflowSessionId": "super-cool-test-session",
+		"query": "YOUR-QUERY-HERE"
 	}
 	```
 	-The replace the property values as such:
 		-'YOUR-AGENT-ID-HERE' with your Dialogflow agent id (accessible via Dialogflow console):
 		-'YOUR-QUERY-HERE' with the sample input you added to the Dialogflow agent
+
 4. Install Node.js 
 
 5. run 'npm install' within the project directory

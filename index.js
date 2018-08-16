@@ -4,7 +4,7 @@
 
 //modules
 const fs = require('fs');   //to read JSON files
-const dfc = require('./dialogflow/DialogflowController.js');
+const dfc = require('./dialogflow/DialogflowController.js'); //our simple interface to Dialogflow
 
 //Load properties
 const propertyObject = JSON.parse(fs.readFileSync('properties.json'));
@@ -21,6 +21,6 @@ function printResponse(response){
 }
 
 //Dialogflow query
-const dfController = new dfc(dfId, dfSessionId);
+const dfController = new dfc(dfId, dfSessionId); //controller provides access to the agent
 dfController.queryAgent(query, printResponse);
 
