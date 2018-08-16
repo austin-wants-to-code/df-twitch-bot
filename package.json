@@ -1,0 +1,27 @@
+{
+  "name": "df-twitch-bot",
+  "version": "1.0.0",
+  "description": "Twitch bot using Dialogflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Austin-Miller-1/df-twitch-bot.git"
+  },
+  "keywords": [
+    "twitch",
+    "bot",
+    "dialogflow"
+  ],
+  "author": "Austin Miller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Austin-Miller-1/df-twitch-bot/issues"
+  },
+  "homepage": "https://github.com/Austin-Miller-1/df-twitch-bot#readme",
+  "dependencies": {
+    "dialogflow": "^0.6.0"
+  }
+}
