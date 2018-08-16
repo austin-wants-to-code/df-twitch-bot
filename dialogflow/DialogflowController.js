@@ -39,7 +39,8 @@ DialogflowController.prototype.queryAgent = function(queryString, callback){
         .then(responses => {
             let result = responses[0].queryResult; //Get result
 
-            callback(result); //Run function on result
+            //TODO, returning fulfillment text only removes access to a lot of the returned response.
+            callback(result.fulfillmentText); //Run function on result
         })
         .catch(err => {
             console.log('An error has occurred', err);
