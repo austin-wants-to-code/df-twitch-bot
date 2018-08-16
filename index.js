@@ -4,42 +4,23 @@
 
 //modules
 const fs = require('fs');   //to read JSON files
-const df = require('dialogflow');   //to work with dialogflow
+const dfc = require('./dialogflow/DialogflowController.js');
 
 //Load properties
 const propertyObject = JSON.parse(fs.readFileSync('properties.json'));
 
 //Project details
 const dfId = propertyObject.dialogflowAgentId;
-const dfSessionId = 'test-session-id';
-const testQuery = propertyObject.sampleQuery;
-const languageCode = 'en-US';
+const dfSessionId = propertyObject.dialogflowSessionId;
+const query = propertyObject.query;
 
-//Instantiate Dialogflow client
-const sessionClient = new df.SessionsClient();
+//Result print function
+function printResponse(response){
+    console.log("Query: " + response.queryText);
+    console.log("Response: " + response.fulfillmentText);
+}
 
-//Define session path
-const sessionPath = sessionClient.sessionPath(dfId, dfSessionId);
+//Dialogflow query
+const dfController = new dfc(dfId, dfSessionId);
+dfController.queryAgent(query, printResponse);
 
-//Query request
-const request ={
-    session: sessionPath,
-    queryInput: {
-        text: {
-            text: testQuery,
-            languageCode: languageCode,
-        },
-    },
-};
-
-//Send request & log result
-sessionClient
-    .detectIntent(request) //i.e. perform query
-    .then(responses => {
-        const result = responses[0].queryResult;
-        console.log(`Query: ${result.queryText}`);
-        console.log(`Response: ${result.fulfillmentText}`);
-    })
-    .catch(err => {
-        console.log('Error', err);
-    });
