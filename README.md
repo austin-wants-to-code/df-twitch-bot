@@ -36,27 +36,27 @@ As mentioned above, certain steps must be taken for this project to work. These 
 	
 	```javascript
 	{
-    "dialogflowConfig": {
-        "agentId": "YOUR-AGENT-ID-HERE",
-        "sessionId": "super-cool-test-ses"
-    },
+		"dialogflowConfig": {
+			"agentId": "YOUR-AGENT-ID-HERE",
+			"sessionId": "super-cool-test-ses"
+		},
 
-    "twitchBotConfig": {
-        "options": {
-        },
+		"twitchBotConfig": {
+			"options": {
+			},
 
-        "connection": {
-            "secure": true
-        },
+			"connection": {
+				"secure": true
+			},
 
-        "identity": {
-            "username": "YOUR-BOT-ACCOUNT-HERE",
-            "password": "YOUR-BOTS-OAUTH-PASSWORD-HERE"
-        },
+			"identity": {
+				"username": "YOUR-BOT-ACCOUNT-HERE",
+				"password": "YOUR-BOTS-OAUTH-PASSWORD-HERE"
+			},
 
-        "channels": ["#YOUR-TWITCH-CHANNEL-HERE"]
-    }
-}
+			"channels": ["#YOUR-TWITCH-CHANNEL-HERE"]
+		}
+	}
 	```
 	-The replace the property values as such:
 		-'YOUR-AGENT-ID-HERE' with your Dialogflow agent id (accessible via Dialogflow console):
