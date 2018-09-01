@@ -6,7 +6,7 @@ The goal of this project is to create a Twitch bot (a fake user for twitch.tv th
 
 ## Current Release
 
-This release, 0.1.0, sends a given query to the Dialogflow agent specified in the properties file. If both the Dialogflow agent and the authentication related to the agent's Google Cloud Project are set up properly, the expected response should be sent back to the machine running this code and printed to the console. This current release uses the code listed on the official Node.js V2 API github ( https://github.com/dialogflow/dialogflow-nodejs-client-v2#using-the-client-library )
+The current release is 0.2.0. Once started, the application connects the Twitch bot-account, the Twitch channel and the Dialogflow agent (all specified in the properties file) such that all chat messages are sent to the agent and then the responses from the agent are posted by the bot. This current release used the code listed on the official Node.js V2 API github ( https://github.com/dialogflow/dialogflow-nodejs-client-v2#using-the-client-library )
 
 ## Set up
 
@@ -14,7 +14,7 @@ As mentioned above, certain steps must be taken for this project to work. These 
 
 1. Create the Dialogflow agent
 	- Go to https://console.dialogflow.com . Create an account, then an agent.
-	- Create an intent (name it anything). Add some examply input and the response of "Hi, welcome to the stream." (or a different response)
+	- Create an intent (name it anything). Add some example input (e.g. 'hello') and some response (e.g. "Hi, welcome to the stream.")
 	
 2. Configure the associated Google Cloud Project to work properly (please follow https://github.com/dialogflow/dialogflow-nodejs-client-v2#quickstart , specifically the section "Before you begin". The steps there are reposted more simply below)
 	- Go to the associated Google Cloud Project ( https://console.cloud.google.com )
@@ -25,30 +25,52 @@ As mentioned above, certain steps must be taken for this project to work. These 
 		- Download Google Cloud SDK: https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version
 		- Once 'gcloud' is available to cmd prompt/terminal, enter 'gcloud auth application-default login' (solution from https://stackoverflow.com/questions/42043611/could-not-load-the-default-credentials-node-js-google-compute-engine-tutorial )
 
+3.	Create and configure your Twitch bot account
+	- Create twitch channel
+	- Go here and connect the account: https://twitchapps.com/tmi/
+	- Authorize and you'll be provided with an oauth password. ** NOTE: ** When using this OAuth password, make sure that the 'oauth' portion of the code is copied too.
 
-3. Download/clone this project & configure
-	- Create a 'properties.json' file.
+4. Download/clone this project & configure
+	- Create a 'properties.json' file to root directory (i.e. in the folder with the README in it).
 	- Add the following text: 
 	
 	```javascript
 	{
-		"dialogflowAgentId": "YOUR-AGENT-ID-HERE",
-		"dialogflowSessionId": "super-cool-test-session",
-		"query": "YOUR-QUERY-HERE"
-	}
+    "dialogflowConfig": {
+        "agentId": "YOUR-AGENT-ID-HERE",
+        "sessionId": "super-cool-test-ses"
+    },
+
+    "twitchBotConfig": {
+        "options": {
+        },
+
+        "connection": {
+            "secure": true
+        },
+
+        "identity": {
+            "username": "YOUR-BOT-ACCOUNT-HERE",
+            "password": "YOUR-BOTS-OAUTH-PASSWORD-HERE"
+        },
+
+        "channels": ["#YOUR-TWITCH-CHANNEL-HERE"]
+    }
+}
 	```
 	-The replace the property values as such:
 		-'YOUR-AGENT-ID-HERE' with your Dialogflow agent id (accessible via Dialogflow console):
-		-'YOUR-QUERY-HERE' with the sample input you added to the Dialogflow agent
+		-'YOUR-BOT-ACCOUNT-HERE' with the Twitch channel that you'd like to act as your bot (i.e. the channel to post responses)
+		-'YOUR-BOTS-OAUTH-PASSWORD-HERE' with the bot channel's oauth password. 
+		
+5. Install Node.js 
 
-4. Install Node.js 
+6. run 'npm install' within the project directory
 
-5. run 'npm install' within the project directory
+7. run 'node index.js'
 
-6. run 'node index.js'
-
-Result should be:
-	"Query: YOUR-QUERY-HERE \n
+Result (using example above) should be:
+	"Query: hi \n
 	Response: Hi, welcome to the stream."
 	
 ## Project Dependencies:

@@ -16,4 +16,4 @@ const twitchCallbacks = {
     processChatMessage: dfController.queryAgent
 }
 const twitchBot = new TwitchBot(propertyObject.twitchBotConfig, twitchCallbacks);
-twitchBot.start();
+twitchBot.start(); //Start her up!
