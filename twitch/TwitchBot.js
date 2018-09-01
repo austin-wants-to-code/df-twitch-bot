@@ -1,38 +1,48 @@
 'use strict';
 const tmi = require('tmi.js');
 
-
 class TwitchBot{
 
-    constructor(botConfig, dfController){
+    constructor(botConfig, callbacks){
+        //Instance vars.
         this.client = new tmi.client(botConfig); //The client, i.e., the bot itself
-        this.dfController = dfController;
+
+        this.processMessage = callbacks.processChatMessage; //Callback that runs on chat messages
+
+        //Bind methods
+        this.start = this.start.bind(this);
     }
 
+    //Start TwitchBot. Begins reading and responding to each chat message.
     start(){
         this.client.connect(); //Connect to the channels
-        this.client.on("message", this._onMessage.bind(this));
+        this.client.on("message", this._onMessage.bind(this)); //Attach message handler
     }
 
-    //On worthy messages, print the details locally, send to dialogflow agent and send agent's response to chat
+    //On worthy messages, print the details locally, run callback on message and post response to chat
     _onMessage(channel, userstate, message, self){
-        //ignore unworthy messages
-        if(!this._isMessageWorthy(message) || self) return;
-    
-        //Print message details
-        let senderUsername = this._getUser(userstate);
-        console.log(`message '${message}' from ${senderUsername} on channel ${channel}`);
-        console.log("sending to diaglogflow...");
-    
-        //Send message to dialogflow, print to chat
-        this._sendMessageToDialogflow(message, this._postResponseToChat.bind(this, channel));
+        //Ignore unworthy chat messages. Best to apply strong restrictions here. The fewer worthy messages => less to be processed elsewhere
+        if(!this._isMessageWorthy(message) || self) return; 
+        
+        //Print to console
+        this._printMessage(channel, userstate, message, self);
+
+        //Run message-processing callback on message. 
+        //Post response to chat by providing callback 
+        //so that once message is processed, the response is posted
+        this.processMessage(message, this._postResponseToChat.bind(this, channel))
     }
 
     //Returns true only if message is worthy enough for agent
     _isMessageWorthy(message){
         return (message     //message exists
-            && message.trim().length > 0 //message isn't whitespace
-            && message.length <= 25); //message isn't more than 25 char (problem with emotes???)
+            && message.trim().length > 0); //message isn't whitespace
+    }
+
+    _printMessage(channel, userstate, message, self){
+        let senderUsername = this._getUser(userstate);
+        console.log(`message '${message}' from ${senderUsername} on channel ${channel}`);
+        console.log("sending to diaglogflow...");
     }
 
     //Gets username given userstate
@@ -40,13 +50,9 @@ class TwitchBot{
         return userstate['username'];
     }
 
+    //Posts given responseText to channel's chat
     _postResponseToChat(channel, responseText){
         this.client.say(channel, responseText);
-    }
-
-    //Sends given message to dialogflow agent and runs callback on response text
-    _sendMessageToDialogflow(message, callback){
-        this.dfController.queryAgent(message, callback);
     }
 }
 

@@ -12,5 +12,8 @@ const propertyObject = JSON.parse(fs.readFileSync('properties.json'));
 const dfController = new DialogflowController(propertyObject.dialogflowConfig); 
 
 //Twitch Bot instance. Provides an interface to interacting with the Twitch chat. Reads chat messages and sends to DialogflowController
-const twitchBot = new TwitchBot(propertyObject.twitchBotConfig, dfController);
+const twitchCallbacks = {
+    processChatMessage: dfController.queryAgent
+}
+const twitchBot = new TwitchBot(propertyObject.twitchBotConfig, twitchCallbacks);
 twitchBot.start();
